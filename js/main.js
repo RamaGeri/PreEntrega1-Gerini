@@ -1,13 +1,26 @@
+/* //register de usario y contraseña
+const USER_REGISTER = prompt("Registre un nombre de usuario")
+const PASSWORD_REGISTER = prompt("Registre una contraseña")
+
+if ((USER_REGISTER != "") && (PASSWORD_REGISTER != "")){
+    alert("se registro: | " + USER_REGISTER + " | como nombre de usuario y: | " + PASSWORD_REGISTER + " | como contraseña")
+    console.log("Usuario: " + USER_REGISTER + " / Contraseña: " + PASSWORD_REGISTER)
+}else{
+    alert("No se registraron correctamente los datos, usar acceso de administrador (Usuario: admin / Contraseña: admin)")
+    console.log("Usuario: admin / Contraseña: admin")
+}
 
 
-// Validacion de usuario y contraseña
+
+// Login de usuario y contraseña
 let repetir;
 do {
-    const NOMBRE_USUARIO = prompt("Escriba su nombre de usuario (Nico Krein)");
-    const PASSWORD = prompt("Escriba su contraseña (ElMejorTutor)");
-    if ((NOMBRE_USUARIO === "Nico Krein") && (PASSWORD === "ElMejorTutor")){
-        alert("Bienvenido Nico!");
-        console.log("Bienvenido Nico!")
+    const USER_LOGIN = prompt("Ingrese su nombre de usuario");
+    const PASSWORD_LOGIN = prompt("Ingrese su contraseña");
+
+    if (((USER_LOGIN === "admin") && (PASSWORD_LOGIN === "admin")) || ((USER_LOGIN === USER_REGISTER) && (PASSWORD_LOGIN === PASSWORD_REGISTER))){
+        alert("Bienvenido " + USER_LOGIN + "!");
+        console.log("Bienvenido " + USER_LOGIN + "!")
         repetir = false;
     }else{
         alert("El usuario o contraseña es incorrecto :c");
@@ -50,5 +63,4 @@ do {
     }
 } while (continuar === "si");
 
-alert("Tu compra es un total de " + sumaProductos + "$ por " + cantidad + " producto/s");
-
+alert("Tu compra es un total de " + sumaProductos + "$ por " + cantidad + " producto/s"); */
