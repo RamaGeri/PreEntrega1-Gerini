@@ -1,4 +1,4 @@
-/* //register de usario y contraseña
+//register de usario y contraseña
 const USER_REGISTER = prompt("Registre un nombre de usuario")
 const PASSWORD_REGISTER = prompt("Registre una contraseña")
 
@@ -63,4 +63,4 @@ do {
     }
 } while (continuar === "si");
 
-alert("Tu compra es un total de " + sumaProductos + "$ por " + cantidad + " producto/s"); */
+alert("Tu compra es un total de " + sumaProductos + "$ por " + cantidad + " producto/s");

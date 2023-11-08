@@ -14,15 +14,15 @@
 
     <header>
         <nav>
-            <div class="nav-items">
+            <div class="nav-logo">
                 <a href="index.html">
                     <img src="assets/img/logo-mcdonalds.png" alt="Logo de comidas">
                 </a>
                 <div>
-                    <a class="carrito" href=""><i class="bi bi-cart2"></i></a>
                     <a class="user" href=""><i class="bi bi-person-circle"></i></a>
                 </div>
             </div>
+            <div class="nav-item">
                 <ul>
                     <li>
                         <a href="index.html">Poductos</a>
@@ -31,11 +31,75 @@
                         <a href="">Contacto</a>
                     </li>
                 </ul>
+                <a class="carrito" href=""><i class="bi bi-cart2"></i></a>
+            </div>
         </nav>
     </header>
 
     <main>
-        <h1>Projecto JavaScript</h1>
+        <h1 class="text-center">Que vas a pedir hoy? :P</h1>
+        <p class="text-center">Pedi tu comida favorita!</p>
+        <div id="cards">
+            <div class="filtro">
+                <input type="radio" name="seleccionado" id="hamburguesas">
+                <input type="radio" name="seleccionado" id="adicionales">
+                <input type="radio" name="seleccionado" id="bebida">
+                <input type="radio" name="seleccionado" id="todo" checked>
+        
+                <div class="container-opciones my-5">
+                    <label for="hamburguesas" class="label-hamburguesas">
+                        Haburguesas
+                    </label>
+                    <label for="adicionales" class="label-adicionales">
+                        Adicionales
+                    </label>
+                    <label for="bebida" class="label-bebida">
+                        Bebida
+                    </label>
+                    <label for="todo" class="label-todo">
+                        Ver todo
+                    </label>
+                </div>
+        
+                <div class="container-cards">
+                    <div class="card hamburguesas" style="width: 18rem;">
+                        <img src="assets/img/hamburguesa.png" class="card-img-top" alt="Hamburguesa">
+                        <div class="card-body">
+                            <h5 class="card-title">Haburguesa con queso</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            <a href="#" class="btn btn-primary">Pedir</a>
+                        </div>
+                    </div>
+        
+                    <div class="card adicionales" style="width: 18rem;">
+                        <img src="assets/img/fritas.png" class="card-img-top" alt="Papas fritas">
+                        <div class="card-body">
+                            <h5 class="card-title">Papas fritas</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            <a href="#" class="btn btn-primary">Pedir</a>
+                        </div>
+                    </div>        
+
+                    <div class="card bebida" style="width: 18rem;">
+                        <img src="assets/img/gaseosa.jpg" class="card-img-top" alt="Gaseosas">
+                        <div class="card-body">
+                            <h5 class="card-title">Gaseosas</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            <a href="#" class="btn btn-primary">Pedir</a>
+                        </div>
+                    </div>
+    
+                    <div class="card bebida" style="width: 18rem;">
+                        <img src="assets/img/agua.jpg" class="card-img-top" alt="Botella con agua">
+                        <div class="card-body">
+                            <h5 class="card-title">Agua</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            <a href="#" class="btn btn-primary">Pedir</a>
+                        </div>
+                    </div>    
+                </div>
+            </div>
+        </div>
     </main>
 
     <footer>

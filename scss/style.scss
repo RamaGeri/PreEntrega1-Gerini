@@ -23,7 +23,7 @@ header {
     padding: 20px 0;
 }
 
-.nav-items {
+.nav-logo {
     display: flex;
     flex-direction: row;
     a {
@@ -38,14 +38,11 @@ header {
         }
     }
     }
-
-
-a {
-    text-decoration: none;
-    color: #f0f0f0;
-    font-size: 1.3rem;
-}
-
+.nav-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
     ul {
         display: flex;
         flex-direction: row;
@@ -53,10 +50,86 @@ a {
         gap: 40px;
         margin-left: 50px;
     }
+    .carrito {
+        margin-right: 60px;
+        font-size: 35px;
+        padding: 0 25px;
+    }
+}
 
+a {
+    text-decoration: none;
+    color: #f0f0f0;
+    font-size: 1.3rem;
+}
 
 main {
     padding: 20px;
+}
+
+
+.container-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-items: center;
+    gap: 20px;
+}
+
+.card-img-top {
+    height: 300px;
+}
+
+.card {
+    max-width: 100%;
+}
+
+#hamburguesas, #adicionales, #bebida, #todo {
+    display: none;
+}
+
+.hamburguesas, .adicionales, .bebida {
+    display: none;
+}
+
+#hamburguesas:checked ~ .container-cards .hamburguesas,
+#adicionales:checked ~ .container-cards .adicionales,
+#bebida:checked ~ .container-cards .bebida{
+    display: flex;
+}
+
+#todo:checked ~ .container-cards .hamburguesas,
+#todo:checked ~ .container-cards .adicionales,
+#todo:checked ~ .container-cards .bebida {
+    display: flex;
+}
+
+.container-opciones {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.container-opciones label {
+    border: solid 1px;
+    padding: 8px 15px;
+    width: 150px;
+    text-align: center;
+    cursor: pointer;
+    &:hover {
+        background-color: goldenrod;
+        border: none;
+    }
+}
+
+
+#hamburguesas:checked ~ .container-opciones .label-hamburguesas,
+#adicionales:checked ~ .container-opciones .label-adicionales,
+#bebida:checked ~ .container-opciones .label-bebida,
+#todo:checked ~ .container-opciones .label-todo {
+    background-color: goldenrod;
+    border: none;
 }
 
 footer {
@@ -64,7 +137,5 @@ footer {
     color: #fff;
     text-align: center;
     padding: 10px 0;
-    position: absolute;
-    bottom: 0;
     width: 100%;
 }
