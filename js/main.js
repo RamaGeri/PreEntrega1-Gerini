@@ -1,111 +1,120 @@
-/* //register de usario y contraseña
-const USER_REGISTER = prompt("Registre un nombre de usuario")
-const PASSWORD_REGISTER = prompt("Registre una contraseña")
-
-if ((USER_REGISTER != "") && (PASSWORD_REGISTER != "")){
-    alert("se registro: | " + USER_REGISTER + " | como nombre de usuario y: | " + PASSWORD_REGISTER + " | como contraseña")
-    console.log("Usuario: " + USER_REGISTER + " / Contraseña: " + PASSWORD_REGISTER)
-}else{
-    alert("No se registraron correctamente los datos, usar acceso de administrador (Usuario: admin / Contraseña: admin)")
-    console.log("Usuario: admin / Contraseña: admin")
-}
-
-
-
-// Login de usuario y contraseña
-let repetir;
-do {
-    const USER_LOGIN = prompt("Ingrese su nombre de usuario");
-    const PASSWORD_LOGIN = prompt("Ingrese su contraseña");
-
-    if (((USER_LOGIN === "admin") && (PASSWORD_LOGIN === "admin")) || ((USER_LOGIN === USER_REGISTER) && (PASSWORD_LOGIN === PASSWORD_REGISTER))){
-        alert("Felicidades, ahora necesitamos conocerte!");
-        console.log("Iniciaste sesion correctamente, ahora necesitamos conocerte!")
-        repetir = false;
-    }else{
-        alert("El usuario o contraseña es incorrecto :c");
-        repetir = true;
-    }
-}while (repetir === true); */
-
-// Saludo al cliente
-class Cliente {
-    constructor(nombre, apellido) {
+class Productos {
+    constructor(id, nombre, precio, img, para) {
+        this.id = id;
         this.nombre = nombre;
-        this.apellido = apellido;
-    }
-    darMensaje() {
-        return `¡Bienvenido, ${this.nombre} ${this.apellido}! \nQue vas a pedir hoy?`;
-    }
-}
-
-let nombre = prompt("Ingresa tu nombre:");
-let apellido = prompt("Ingresa tu apellido:");
-
-let mensajeBienvenida = new Cliente(nombre, apellido);
-
-alert(mensajeBienvenida.darMensaje());
-console.log(mensajeBienvenida.darMensaje()); 
-
-// Carrito de compras
-class Carrito {
-    constructor() {
-        this.productos = [];
-    }
-
-    agregarProducto(producto, precio) {
-        this.productos.push({ producto, precio });
-    }
-
-    calcularTotal() {
-        return this.productos.reduce((total, producto) => total + producto.precio, 0);
+        this.precio = precio;
+        this.img = img;
+        this.para = para;
+        this.cantidad = 1;
     }
 }
 
-let carrito = new Carrito();
+let burguerQueso = new Productos(1, "Hamburguesa con queso", 1400, "assets/img/hamburguesa.png", "hamburguesas");
+let fritas = new Productos(2, "Papas fritas", 800, "assets/img/fritas.png", "adicionales");
+let gaseosa = new Productos(3, "Gaseosa", 500, "assets/img/gaseosa.jpg", "bebida");
+let agua = new Productos(4, "Agua", 400, "assets/img/agua.jpg", "bebida");
 
-do {
-    let pedido = parseInt(prompt("¿Qué vas a querer? (Elegi un número) 1) Hamburguesa con queso - 1400$ 2) Papas fritas - 800$ 3) Gaseosa - 500$ 4) Agua - 400$"));
+const PRODUCTOS = [burguerQueso, fritas, gaseosa, agua];
 
-    switch (pedido) {
-        case 1:
-            carrito.agregarProducto("Hamburguesa con queso", 1400);
-            break;
-        case 2:
-            carrito.agregarProducto("Papas fritas", 800);
-            break;
-        case 3:
-            carrito.agregarProducto("Gaseosa", 500);
-            break;
-        case 4:
-            carrito.agregarProducto("Agua", 400);
-            break;
-        default:
-            alert("Ingresa un número válido");
-            break;
+let carrito = [];
+
+const CONTENEDOR_PRODUCTOS = document.getElementById("contenedorCards");
+const CARITO_CONTENEDOR = document.getElementById('carrito-contenedor');
+
+const MOSTRAR_PRODUCTOS = () => {
+    PRODUCTOS.forEach(productos => {
+        const CARD = document.createElement("div");
+        CARD.classList.add("card", `${productos.para}`);
+        CARD.style = "width: 18rem;";
+        CARD.innerHTML =
+            `
+            <img src="${productos.img}" class="card-img-top" alt="">
+            <div class="card-body">
+                <h5 class="card-title">${productos.nombre}</h5>
+                <p class="card-text">${productos.precio}$</p>
+                <a href="#" class="btn btn-primary" id="boton${productos.id}">Pedir</a>
+            </div>
+        `;
+        CONTENEDOR_PRODUCTOS.appendChild(CARD);
+
+        const BOTON = document.getElementById(`boton${productos.id}`);
+        BOTON.addEventListener('click', () => {
+            agregarAlCarrito(productos);
+        });
+    });
+};
+
+const mostrarCarrito = () => {
+    CARITO_CONTENEDOR.innerHTML = '';
+    let totalGeneral = 0;
+
+    const carritoEnStorage = localStorage.getItem('carrito');
+
+    if (carritoEnStorage) {
+        const carrito = JSON.parse(carritoEnStorage);
+
+        if (carrito.length > 0) {
+            carrito.forEach(producto => {
+                const cardCarrito = document.createElement('div');
+                cardCarrito.classList.add('card', 'mb-3');
+                cardCarrito.innerHTML = `
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <img src="${producto.img}" class="img-fluid rounded-start carrito-imagen" alt="">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">${producto.nombre}</h5>
+                                <p class="card-text">Precio: ${producto.precio}$ - Cantidad: ${producto.cantidad}</p>
+                                <button class="btn btn-danger" id="eliminar${producto.id}">Eliminar</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                CARITO_CONTENEDOR.appendChild(cardCarrito);
+
+                const botonEliminar = document.getElementById(`eliminar${producto.id}`);
+                botonEliminar.addEventListener('click', () => {
+                    eliminarDelCarrito(producto.id);
+                });
+
+
+                const subtotalProducto = producto.precio * producto.cantidad;
+                totalGeneral += subtotalProducto;
+            });
+
+            const totalElement = document.createElement('div');
+            totalElement.innerHTML = `<p class="totalCarrito">Total General: ${totalGeneral}$</p>`;
+            CARITO_CONTENEDOR.appendChild(totalElement);
+        } else {
+            CARITO_CONTENEDOR.innerHTML = '<p>El carrito está vacío.</p>';
+        }
+    } else {
+        CARITO_CONTENEDOR.innerHTML = '<p>Error al cargar el carrito.</p>';
+    }
+};
+
+const agregarAlCarrito = (producto) => {
+    const productoEnCarrito = carrito.find(p => p.id === producto.id);
+
+    if (productoEnCarrito) {
+        productoEnCarrito.cantidad++;
+    } else {
+        carrito.push({ ...producto, cantidad: 1 });
     }
 
-    let continuar = prompt("¿Quieres agregar otro producto? SI / NO").toLowerCase();
-    if (continuar === "no") {
-        break;
-    }
-} while (true);
+    localStorage.setItem('carrito', JSON.stringify(carrito));
 
-//Mensajes
+    mostrarCarrito();
+};
 
-let mensajePedido = "Tu pedido:\n";
+const eliminarDelCarrito = (id) => {
+    carrito = carrito.filter(producto => producto.id !== id);
+    localStorage.setItem('carrito', JSON.stringify(carrito));
 
-carrito.productos.forEach(producto => {
-    mensajePedido += `- ${producto.producto}: ${producto.precio}$\n`;
-});
+    mostrarCarrito();
+};
 
-alert(mensajePedido);
+MOSTRAR_PRODUCTOS();
+mostrarCarrito();
 
-alert(`El total de tu compra es: ${carrito.calcularTotal()}$`);
-
-console.log("Tu pedido:");
-carrito.productos.forEach(producto => {
-    console.log(`- ${producto.producto}: ${producto.precio}$`);
-});
-
-console.log(`Total: ${carrito.calcularTotal()}$`);
